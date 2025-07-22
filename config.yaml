@@ -1,0 +1,25 @@
+alpha: 0.7
+beta: 0.3
+
+performance_target:
+    microservice: 100.0
+    batch: 300.0
+
+resource_limits:
+    cpu: 0.8
+    memory: 0.7
+    network: 0.5
+
+sliding_window_size: 30
+exploration_duration: 10
+
+metrics:
+    performance:
+        microservice: "p90_latency"
+        batch: "job_time"
+    context:
+        workload: "sum(rate(http_requests_total{namespace='{{namespace}}'}[5m]))"
+        cpu_util: "avg(node_cpu_utilization)"
+        mem_util: "avg(node_memory_utilization)"
+        net_util: "avg(node_network_transmit_bytes_total + node_network_receive_bytes_total)"
+        spot_price: "1" 
